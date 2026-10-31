@@ -42,7 +42,7 @@ export default function Projects() {
   return (
     <section id="selected-projects" ref={containerRef} className="py-20 md:py-32">
       <div className="app-container">
-        <SectionTitle title="Selected Projects" />
+        <SectionTitle title="Projects" />
 
         <div
           className="project-list relative"
