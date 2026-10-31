@@ -11,7 +11,10 @@ export default function Home({ ready }) {
 
   useEffect(() => {
     if (!ready || !hash) return
-    const timer = setTimeout(() => scrollToSection(hash.slice(1)), 200)
+    const timer = setTimeout(() => {
+      scrollToSection(hash.slice(1))
+      window.history.replaceState(window.history.state, '', window.location.pathname)
+    }, 200)
     return () => clearTimeout(timer)
   }, [ready, hash])
 
