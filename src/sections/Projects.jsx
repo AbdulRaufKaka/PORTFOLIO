@@ -32,11 +32,13 @@ export default function Projects() {
   )
 
   const handleMouseMove = (e) => {
-    if (!moveRef.current) return
+    if (!moveRef.current || !previewRef.current) return
     const rect = containerRef.current.querySelector('.project-list').getBoundingClientRect()
     const previewWidth = previewRef.current.offsetWidth
-    moveRef.current.x(Math.min(e.clientX - rect.left + 30, rect.width - previewWidth))
-    moveRef.current.y(e.clientY - rect.top - 120)
+    const previewHeight = previewRef.current.offsetHeight
+    const localY = e.clientY - rect.top
+    moveRef.current.x(Math.max(0, rect.width - previewWidth))
+    moveRef.current.y(Math.min(Math.max(localY - previewHeight * 0.45, -20), rect.height - previewHeight + 40))
   }
 
   return (
@@ -53,11 +55,16 @@ export default function Projects() {
             <Link
               key={project.slug}
               to={`/projects/${project.slug}`}
-              onMouseEnter={() => setActiveIndex(index)}
+              onMouseEnter={(e) => {
+                setActiveIndex(index)
+                handleMouseMove(e)
+              }}
+              onMouseOver={() => setActiveIndex(index)}
+              onFocus={() => setActiveIndex(index)}
               className="project-item group block border-b border-border py-6 md:py-8"
             >
-              <div className="mb-5 aspect-video overflow-hidden md:hidden">
-                <ProjectThumbnail project={project} />
+              <div className="mb-5 aspect-video overflow-hidden border border-border md:hidden">
+                <ProjectThumbnail project={project} cycling />
               </div>
 
               <div className="flex gap-3 sm:gap-5">
@@ -85,7 +92,7 @@ export default function Projects() {
           {/* Hover preview following the cursor (desktop only) */}
           <div
             ref={previewRef}
-            className={`pointer-events-none absolute left-0 top-0 z-10 hidden h-[240px] w-[400px] overflow-hidden shadow-2xl transition-[opacity,scale] duration-300 md:block ${
+            className={`pointer-events-none absolute left-0 top-0 z-10 hidden h-[270px] w-[460px] overflow-hidden border border-primary/25 shadow-[0_24px_80px_rgb(0_0_0_/_0.55),0_0_40px_rgb(0_240_90_/_0.12)] transition-[opacity,transform] duration-300 md:block ${
               activeIndex === null ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
             }`}
           >
@@ -96,7 +103,7 @@ export default function Projects() {
                   activeIndex === index ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <ProjectThumbnail project={project} />
+                <ProjectThumbnail project={project} cycling={activeIndex === index} />
               </div>
             ))}
           </div>

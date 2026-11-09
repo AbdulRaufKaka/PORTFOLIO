@@ -79,9 +79,29 @@ export default function ProjectDetails() {
           </div>
         )}
 
-        <div className="detail-cover mt-12 aspect-video overflow-hidden md:aspect-[21/9]">
-          <ProjectThumbnail project={project} />
+        <div className="detail-cover mt-12 aspect-video overflow-hidden border border-border md:aspect-[21/9]">
+          <ProjectThumbnail project={project} cycling={Boolean(project.images?.length)} />
         </div>
+
+        {project.images?.length > 1 && (
+          <ul className="detail-fade mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+            {project.images.map((shot) => (
+              <li key={shot.label} className="group/shot overflow-hidden border border-border bg-background-light">
+                <div className="aspect-video overflow-hidden">
+                  <img
+                    src={shot.src}
+                    alt={shot.label}
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover/shot:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <p className="px-2 py-1.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {shot.label}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <div className="mt-16 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">

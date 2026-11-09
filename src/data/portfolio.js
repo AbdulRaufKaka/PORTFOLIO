@@ -1,3 +1,8 @@
+import satintelChat from '../assets/Chat_Interface.jpeg'
+import satintelLight from '../assets/Landing_page_Light_Mode.jpeg'
+import satintelStats from '../assets/Stats.jpeg'
+import satintelTesting from '../assets/Testing_Result.jpeg'
+import satintelDark from '../assets/landing_page_Dark_Mode.jpeg'
 import {
   SiDocker,
   SiExpress,
@@ -24,10 +29,9 @@ export const GENERAL_INFO = {
   emailBody: 'Hi Abdul Rauf, I came across your portfolio and would like to talk about...',
 }
 
-// Replace the `#` links with your real profile URLs.
 export const SOCIAL_LINKS = [
-  { name: 'github', url: '#' },
-  { name: 'linkedin', url: '#' },
+  { name: 'github', url: 'https://github.com/AbdulRaufKaka' },
+  { name: 'linkedin', url: 'https://www.linkedin.com/in/abdulraufkaka' },
   { name: 'email', url: `mailto:${GENERAL_INFO.email}` },
 ]
 
@@ -96,7 +100,13 @@ export const PROJECTS = [
     year: '2025',
     techStack: ['Multimodal AI', 'RemoteCLIP', 'Phi-3.5-Mini', 'LoRA', 'GroundingDINO', 'SAM2'],
     gradient: ['#00F05A', '#00BFF0'],
-    // Optional: set to a URL to show "Live Preview" / "Source Code" buttons.
+    images: [
+      { src: satintelDark, label: 'Landing — Dark' },
+      { src: satintelLight, label: 'Landing — Light' },
+      { src: satintelChat, label: 'Chat Interface' },
+      { src: satintelStats, label: 'Benchmark Stats' },
+      { src: satintelTesting, label: 'Detection Results' },
+    ],
     liveUrl: '',
     sourceUrl: '',
     description:
